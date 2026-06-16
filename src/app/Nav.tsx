@@ -8,6 +8,7 @@ export default function Footer(){
           <div className="flex gap-6">
             <Link href="/blogs">Blog</Link>
             <Link href="/goodReads">Good Read</Link>
+            <Link href="/lab">Lab</Link>
           </div>
         </nav>
     )
