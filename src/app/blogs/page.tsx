@@ -1,7 +1,53 @@
-export default function Blogs(){
-    return (
-        <div>
-            comingsoon
-        </div>      
-    )
+import Link from "next/link";
+import Footer from "../Nav";
+import { blogs } from "../data/blogs";
+
+export default function Blogs() {
+  const sortedBlogs = [...blogs].sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  );
+
+  return (
+    <div className="min-h-screen pt-24 md:pt-28 px-6 md:px-12 lg:px-20">
+      <div className="w-full max-w-3xl mx-auto">
+        <Footer />
+        <main className="w-full mt-12">
+          <h1 className="text-4xl font-bold mb-8">Blog</h1>
+
+          <div className="space-y-8">
+            {sortedBlogs.map((blog) => (
+              <article key={blog.slug} className="border-b pb-8 last:border-b-0">
+                <Link href={`/blogs/${blog.slug}`} className="group">
+                  <h2 className="text-2xl font-semibold mb-2 group-hover:underline">
+                    {blog.title}
+                  </h2>
+                </Link>
+
+                <time className="text-sm opacity-60 mb-3 block">
+                  {new Date(blog.date).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                  })}
+                </time>
+
+                <p className="mb-4 opacity-80">{blog.excerpt}</p>
+
+                <div className="flex flex-wrap gap-2">
+                  {blog.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="text-xs px-3 py-1 rounded-full bg-gray-200 dark:bg-gray-800"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </article>
+            ))}
+          </div>
+        </main>
+      </div>
+    </div>
+  );
 }
