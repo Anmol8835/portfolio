@@ -35,38 +35,37 @@ export default function LabPage() {
     <div className="relative isolate min-h-screen overflow-hidden pt-24 md:pt-28 px-6 md:px-12 lg:px-20">
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 bg-white dark:bg-[#070B18]"
+        className="pointer-events-none absolute inset-0 z-0 bg-white"
       />
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 z-[1]
         bg-[linear-gradient(to_right,rgba(0,0,0,0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.08)_1px,transparent_1px)]
-        bg-[size:18px_18px]
-        dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.09)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.09)_1px,transparent_1px)]"
+        bg-[size:18px_18px]"
       />
       <div className={`relative z-[2] w-full ${container.width} mx-auto`}>
         <Footer />
 
         <header className="pt-10 pb-10">
-          <p className="text-sm text-[color:#0C214D] dark:text-[color:#DC2626]">
+          <p className="text-sm text-[color:#0C214D]">
             Lab
           </p>
-          <h1 className="mt-2 text-3xl md:text-4xl font-semibold tracking-tight text-[color:#0C214D] dark:text-white">
+          <h1 className="mt-2 text-3xl md:text-4xl font-semibold tracking-tight text-[color:#0C214D]">
             UI Playground
           </h1>
-          <p className="mt-2 text-base md:text-lg text-[color:#2A3F6A] dark:text-neutral-300">
+          <p className="mt-2 text-base md:text-lg text-[color:#2A3F6A]">
             Tweak controls and refresh styles quickly without touching real pages.
           </p>
         </header>
 
         <div className={`grid grid-cols-1 md:grid-cols-2 ${container.gap}`}>
-          <section className={`rounded-2xl border border-[color:#0C214D]/20 dark:border-[color:#7F1D1D]/35 bg-white/70 dark:bg-[#070B18]/70 backdrop-blur px-5 ${container.pad}`}>
-            <h2 className="text-sm font-medium text-[color:#0C214D] dark:text-white">
+          <section className={`rounded-2xl border border-[color:#0C214D]/20 bg-white/70 backdrop-blur px-5 ${container.pad}`}>
+            <h2 className="text-sm font-medium text-[color:#0C214D]">
               Controls
             </h2>
             <div className="mt-4 space-y-4">
               <div className="space-y-1.5">
-                <label className="text-xs text-[color:#2A3F6A] dark:text-neutral-300">
+                <label className="text-xs text-[color:#2A3F6A]">
                   Max width
                 </label>
                 <div className="flex gap-2">
@@ -78,8 +77,8 @@ export default function LabPage() {
                       className={[
                         "rounded-xl px-3 py-2 text-sm border transition-colors",
                         maxWidth === v
-                          ? "border-[color:#991B1B]/70 text-[color:#0C214D] dark:text-white bg-[color:#991B1B]/10"
-                          : "border-[color:#0C214D]/20 dark:border-white/10 text-[color:#2A3F6A] dark:text-neutral-300 hover:text-[color:#0C214D] dark:hover:text-white hover:border-[color:#0C214D]/35 dark:hover:border-white/20",
+                          ? "border-[color:#991B1B]/70 text-[color:#0C214D] bg-[color:#991B1B]/10"
+                          : "border-[color:#0C214D]/20 text-[color:#2A3F6A] hover:text-[color:#0C214D] hover:border-[color:#0C214D]/35",
                       ].join(" ")}
                     >
                       {v}
@@ -89,7 +88,7 @@ export default function LabPage() {
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs text-[color:#2A3F6A] dark:text-neutral-300">
+                <label className="text-xs text-[color:#2A3F6A]">
                   Density
                 </label>
                 <div className="flex gap-2">
@@ -101,8 +100,8 @@ export default function LabPage() {
                       className={[
                         "rounded-xl px-3 py-2 text-sm border transition-colors capitalize",
                         density === v
-                          ? "border-[color:#991B1B]/70 text-[color:#0C214D] dark:text-white bg-[color:#991B1B]/10"
-                          : "border-[color:#0C214D]/20 dark:border-white/10 text-[color:#2A3F6A] dark:text-neutral-300 hover:text-[color:#0C214D] dark:hover:text-white hover:border-[color:#0C214D]/35 dark:hover:border-white/20",
+                          ? "border-[color:#991B1B]/70 text-[color:#0C214D] bg-[color:#991B1B]/10"
+                          : "border-[color:#0C214D]/20 text-[color:#2A3F6A] hover:text-[color:#0C214D] hover:border-[color:#0C214D]/35",
                       ].join(" ")}
                     >
                       {v}
@@ -112,13 +111,13 @@ export default function LabPage() {
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs text-[color:#2A3F6A] dark:text-neutral-300">
+                <label className="text-xs text-[color:#2A3F6A]">
                   Title text
                 </label>
                 <select
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="w-full rounded-xl border border-[color:#0C214D]/20 dark:border-white/10 bg-white/80 dark:bg-[#070B18]/50 px-3 py-2 text-sm text-[color:#0C214D] dark:text-white"
+                  className="w-full rounded-xl border border-[color:#0C214D]/20 bg-white/80 px-3 py-2 text-sm text-[color:#0C214D]"
                 >
                   {SAMPLE.map((t) => (
                     <option key={t} value={t}>
@@ -129,36 +128,36 @@ export default function LabPage() {
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs text-[color:#2A3F6A] dark:text-neutral-300">
+                <label className="text-xs text-[color:#2A3F6A]">
                   Body text
                 </label>
                 <textarea
                   value={body}
                   onChange={(e) => setBody(e.target.value)}
                   rows={4}
-                  className="w-full resize-none rounded-xl border border-[color:#0C214D]/20 dark:border-white/10 bg-white/80 dark:bg-[#070B18]/50 px-3 py-2 text-sm text-[color:#0C214D] dark:text-white"
+                  className="w-full resize-none rounded-xl border border-[color:#0C214D]/20 bg-white/80 px-3 py-2 text-sm text-[color:#0C214D]"
                 />
               </div>
             </div>
           </section>
 
-          <section className={`rounded-2xl border border-[color:#0C214D]/20 dark:border-[color:#7F1D1D]/35 bg-white/70 dark:bg-[#070B18]/70 backdrop-blur px-5 ${container.pad}`}>
-            <h2 className="text-sm font-medium text-[color:#0C214D] dark:text-white">
+          <section className={`rounded-2xl border border-[color:#0C214D]/20 bg-white/70 backdrop-blur px-5 ${container.pad}`}>
+            <h2 className="text-sm font-medium text-[color:#0C214D]">
               Preview
             </h2>
 
-            <div className="mt-5 rounded-2xl bg-[color:#F6F8FF] dark:bg-[#0A1026] px-8 py-12 flex items-center justify-center border border-[color:#0C214D]/10 dark:border-white/10">
+            <div className="mt-5 rounded-2xl bg-[color:#F6F8FF] px-8 py-12 flex items-center justify-center border border-[color:#0C214D]/10">
               <Calligraph
                 as="span"
                 initial
                 animation="smooth"
-                className="text-4xl md:text-5xl font-semibold tracking-tight text-[color:#0C214D] dark:text-white text-center"
+                className="text-4xl md:text-5xl font-semibold tracking-tight text-[color:#0C214D] text-center"
               >
                 {title}
               </Calligraph>
             </div>
 
-            <p className="mt-4 text-sm md:text-base text-[color:#1F335C] dark:text-neutral-300 leading-relaxed">
+            <p className="mt-4 text-sm md:text-base text-[color:#1F335C] leading-relaxed">
               {body}
             </p>
 
@@ -171,13 +170,13 @@ export default function LabPage() {
               </button>
               <button
                 type="button"
-                className="rounded-xl border border-[color:#0C214D]/25 dark:border-white/15 px-4 py-2 text-sm font-medium text-[color:#0C214D] dark:text-white hover:bg-[color:#0C214D]/5 dark:hover:bg-white/5 transition-colors"
+                className="rounded-xl border border-[color:#0C214D]/25 px-4 py-2 text-sm font-medium text-[color:#0C214D] hover:bg-[color:#0C214D]/5 transition-colors"
               >
                 Secondary
               </button>
               <button
                 type="button"
-                className="rounded-xl px-4 py-2 text-sm font-medium text-[color:#2A3F6A] dark:text-neutral-300 hover:text-[color:#991B1B] transition-colors"
+                className="rounded-xl px-4 py-2 text-sm font-medium text-[color:#2A3F6A] hover:text-[color:#991B1B] transition-colors"
               >
                 Ghost
               </button>

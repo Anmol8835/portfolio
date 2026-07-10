@@ -1,6 +1,5 @@
 import Footer from "./Nav";
 import CalligraphDemo from "../components/CalligraphDemo";
-import { Calligraph } from "calligraph";
 
 export default function Home() {
   return (
@@ -10,8 +9,8 @@ export default function Home() {
         <main className="w-full">
           <CalligraphDemo />
 
-          <section className="mt-10 space-y-5 text-base md:text-lg leading-relaxed text-neutral-700 dark:text-neutral-300">
-            <p className="text-lg md:text-xl text-neutral-900 dark:text-neutral-100 font-medium">
+          <section className="mt-10 space-y-5 text-base md:text-lg leading-relaxed text-neutral-800">
+            <p className="text-lg md:text-xl text-neutral-900 font-medium">
               Hi, I&apos;m Anmol — a software engineer based in Bangalore. I graduated from IIT Ropar and I spend my days building full-stack web apps and backend systems.
             </p>
 

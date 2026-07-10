@@ -40,8 +40,8 @@ export default function ProjectsPage() {
         <Footer />
 
         <main className="mt-10">
-          <section className="space-y-5 text-base md:text-lg leading-relaxed text-neutral-700 dark:text-neutral-300">
-            <p className="text-lg md:text-xl text-neutral-900 dark:text-neutral-100 font-medium">
+          <section className="space-y-5 text-base md:text-lg leading-relaxed text-neutral-800">
+            <p className="text-lg md:text-xl text-neutral-900 font-medium">
               Things I&apos;ve built.
             </p>
             <p>
@@ -55,10 +55,10 @@ export default function ProjectsPage() {
               <div key={p.title}>
                 <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
                   <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                    <h2 className="text-lg md:text-xl font-semibold text-neutral-900 dark:text-neutral-100">
+                    <h2 className="text-lg md:text-xl font-semibold text-neutral-900">
                       {p.title}
                     </h2>
-                    <span className="text-sm text-neutral-500 dark:text-neutral-400">
+                    <span className="text-sm text-neutral-500">
                       {p.when}
                     </span>
                   </div>
@@ -67,16 +67,16 @@ export default function ProjectsPage() {
                       href={p.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-sm text-neutral-900 dark:text-neutral-100 underline underline-offset-2 hover:text-neutral-600 dark:hover:text-neutral-400"
+                      className="text-sm text-neutral-900 underline underline-offset-2 hover:text-neutral-600"
                     >
                       {p.link.replace("https://", "")}
                     </a>
                   )}
                 </div>
-                <p className="mt-1 text-sm font-mono text-neutral-500 dark:text-neutral-400">
+                <p className="mt-1 text-sm font-mono text-neutral-600">
                   {p.stack}
                 </p>
-                <p className="mt-3 text-base leading-relaxed text-neutral-700 dark:text-neutral-300">
+                <p className="mt-3 text-base leading-relaxed text-neutral-800">
                   {p.description}
                 </p>
               </div>

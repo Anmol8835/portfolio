@@ -44,16 +44,16 @@ export default async function BlogPost({ params }: BlogPostProps) {
         <main className="w-full mt-12">
           <Link
             href="/blogs"
-            className="inline-block mb-8 text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
+            className="inline-block mb-8 text-neutral-600 hover:text-neutral-900 transition-colors"
           >
             ← Back to all posts
           </Link>
 
           <article>
             <header className="mb-8">
-              <h1 className="text-4xl font-bold mb-4 text-neutral-900 dark:text-neutral-100">{blog.title}</h1>
+              <h1 className="text-4xl font-bold mb-4 text-neutral-900">{blog.title}</h1>
 
-              <time className="text-sm block mb-4 text-neutral-500 dark:text-neutral-400">
+              <time className="text-sm block mb-4 text-neutral-600">
                 {new Date(blog.date).toLocaleDateString("en-US", {
                   year: "numeric",
                   month: "long",
@@ -65,7 +65,7 @@ export default async function BlogPost({ params }: BlogPostProps) {
                 {blog.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="text-xs px-3 py-1 rounded-full bg-gray-200 dark:bg-gray-800"
+                    className="text-xs px-3 py-1 rounded-full bg-gray-200"
                   >
                     {tag}
                   </span>
@@ -73,7 +73,7 @@ export default async function BlogPost({ params }: BlogPostProps) {
               </div>
             </header>
 
-            <div className="prose prose-gray dark:prose-invert max-w-none">
+            <div className="prose prose-gray max-w-none">
               {blog.content.split("\n").map((paragraph, index) => {
                 if (paragraph.trim() === "") {
                   return null;
@@ -82,7 +82,7 @@ export default async function BlogPost({ params }: BlogPostProps) {
                 // Handle headings
                 if (paragraph.startsWith("## ")) {
                   return (
-                    <h2 key={index} className="text-2xl font-bold mt-8 mb-4 text-neutral-900 dark:text-neutral-100">
+                    <h2 key={index} className="text-2xl font-bold mt-8 mb-4 text-neutral-900">
                       {paragraph.replace("## ", "")}
                     </h2>
                   );
@@ -90,7 +90,7 @@ export default async function BlogPost({ params }: BlogPostProps) {
 
                 if (paragraph.startsWith("### ")) {
                   return (
-                    <h3 key={index} className="text-xl font-semibold mt-6 mb-3 text-neutral-900 dark:text-neutral-100">
+                    <h3 key={index} className="text-xl font-semibold mt-6 mb-3 text-neutral-900">
                       {paragraph.replace("### ", "")}
                     </h3>
                   );
@@ -99,7 +99,7 @@ export default async function BlogPost({ params }: BlogPostProps) {
                 // Handle list items
                 if (paragraph.startsWith("- ")) {
                   return (
-                    <li key={index} className="ml-6 mb-2 text-neutral-700 dark:text-neutral-300">
+                    <li key={index} className="ml-6 mb-2 text-neutral-800">
                       {paragraph.replace("- ", "").replace(/\*\*(.*?)\*\*/g, (_, text) => text)}
                     </li>
                   );
@@ -108,7 +108,7 @@ export default async function BlogPost({ params }: BlogPostProps) {
                 // Handle numbered lists
                 if (/^\d+\.\s/.test(paragraph)) {
                   return (
-                    <li key={index} className="ml-6 mb-2 text-neutral-700 dark:text-neutral-300">
+                    <li key={index} className="ml-6 mb-2 text-neutral-800">
                       {paragraph.replace(/^\d+\.\s/, "")}
                     </li>
                   );
@@ -122,12 +122,12 @@ export default async function BlogPost({ params }: BlogPostProps) {
                 // Regular paragraphs with basic markdown support
                 const processedParagraph = paragraph
                   .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                  .replace(/`(.*?)`/g, '<code class="bg-gray-200 dark:bg-gray-800 px-1 py-0.5 rounded text-sm">$1</code>');
+                  .replace(/`(.*?)`/g, '<code class="bg-gray-200 px-1 py-0.5 rounded text-sm">$1</code>');
 
                 return (
                   <p
                     key={index}
-                    className="mb-4 leading-relaxed text-neutral-700 dark:text-neutral-300"
+                    className="mb-4 leading-relaxed text-neutral-800"
                     dangerouslySetInnerHTML={{ __html: processedParagraph }}
                   />
                 );

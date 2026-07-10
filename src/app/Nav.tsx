@@ -1,7 +1,6 @@
 'use client';
 
 import Link from "next/link";
-import ThemeToggle from "@/components/ThemeToggle";
 
 export default function Footer(){
     return(
@@ -14,7 +13,6 @@ export default function Footer(){
             <Link href="/projects">Projects</Link>
             <Link href="/goodReads">Good Read</Link>
             <Link href="/lab">Lab</Link>
-            <ThemeToggle />
           </div>
         </nav>
     )

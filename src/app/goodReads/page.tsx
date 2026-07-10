@@ -26,8 +26,8 @@ export default function GoodReads() {
         <Footer />
 
         <main className="mt-10">
-          <section className="space-y-5 text-base md:text-lg leading-relaxed text-neutral-700 dark:text-neutral-300">
-            <p className="text-lg md:text-xl text-neutral-900 dark:text-neutral-100 font-bold">
+          <section className="space-y-5 text-base md:text-lg leading-relaxed text-neutral-800">
+            <p className="text-lg md:text-xl text-neutral-900 font-bold">
               Good reads.
             </p>
             <p>
@@ -36,7 +36,7 @@ export default function GoodReads() {
           </section>
 
           {data.length === 0 ? (
-            <p className="mt-16 text-center text-neutral-500 dark:text-neutral-400 text-lg">
+            <p className="mt-16 text-center text-neutral-600 text-lg">
               Coming soon.
             </p>
           ) : (
@@ -47,17 +47,17 @@ export default function GoodReads() {
                     href={item.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-base md:text-lg font-semibold text-neutral-900 dark:text-neutral-100 underline underline-offset-2 hover:text-neutral-600 dark:hover:text-neutral-400"
+                    className="text-base md:text-lg font-semibold text-neutral-900 underline underline-offset-2 hover:text-neutral-600"
                   >
                     {item.name}
                   </a>
                   {item.description && (
-                    <p className="mt-1 text-base leading-relaxed text-neutral-700 dark:text-neutral-300">
+                    <p className="mt-1 text-base leading-relaxed text-neutral-800">
                       {item.description}
                     </p>
                   )}
                   {item.date && (
-                    <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
+                    <p className="mt-1 text-sm text-neutral-600">
                       {item.date}
                     </p>
                   )}
