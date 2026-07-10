@@ -10,19 +10,21 @@ export default function Home() {
         <main className="w-full">
           <CalligraphDemo />
 
-          <p>Hi i am anmol and this is my corner of internet. I am currently living and working in banglore.</p>
+          <section className="mt-10 space-y-5 text-base md:text-lg leading-relaxed text-neutral-700 dark:text-neutral-300">
+            <p className="text-lg md:text-xl text-neutral-900 dark:text-neutral-100 font-medium">
+              Hi, I&apos;m Anmol — a software engineer based in Bangalore. I graduated from IIT Ropar and I spend my days building full-stack web apps and backend systems.
+            </p>
 
-          <p>Some of the things i am interesed in:</p>
+            <p>
+              I work across the stack — React, Next.js, and TypeScript on the frontend, with NestJS, FastAPI, and Flask on the backend. Lately I&apos;ve been deep into LLMs, building an API gateway that unifies multiple AI providers behind a single endpoint.
+            </p>
 
-          <ul>
-            <li>finance</li>
-            <li>reading</li>
-            <li>tech</li>
-            <li>anime</li>
-          </ul>
+            <p>
+              Off the clock, you&apos;ll find me playing football, reading about finance and tech, watching anime, or grinding competitive programming problems.
+            </p>
+          </section>
 
-          <p>The thing i care about are art</p>
-          <Calligraph>text</Calligraph>
+          {/* <Calligraph>text</Calligraph> */}
         </main>
       </div>
     </div>

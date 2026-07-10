@@ -44,16 +44,16 @@ export default async function BlogPost({ params }: BlogPostProps) {
         <main className="w-full mt-12">
           <Link
             href="/blogs"
-            className="inline-block mb-8 opacity-60 hover:opacity-100 transition-opacity"
+            className="inline-block mb-8 text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
           >
             ← Back to all posts
           </Link>
 
           <article>
             <header className="mb-8">
-              <h1 className="text-4xl font-bold mb-4">{blog.title}</h1>
+              <h1 className="text-4xl font-bold mb-4 text-neutral-900 dark:text-neutral-100">{blog.title}</h1>
 
-              <time className="text-sm opacity-60 block mb-4">
+              <time className="text-sm block mb-4 text-neutral-500 dark:text-neutral-400">
                 {new Date(blog.date).toLocaleDateString("en-US", {
                   year: "numeric",
                   month: "long",
@@ -82,7 +82,7 @@ export default async function BlogPost({ params }: BlogPostProps) {
                 // Handle headings
                 if (paragraph.startsWith("## ")) {
                   return (
-                    <h2 key={index} className="text-2xl font-bold mt-8 mb-4">
+                    <h2 key={index} className="text-2xl font-bold mt-8 mb-4 text-neutral-900 dark:text-neutral-100">
                       {paragraph.replace("## ", "")}
                     </h2>
                   );
@@ -90,7 +90,7 @@ export default async function BlogPost({ params }: BlogPostProps) {
 
                 if (paragraph.startsWith("### ")) {
                   return (
-                    <h3 key={index} className="text-xl font-semibold mt-6 mb-3">
+                    <h3 key={index} className="text-xl font-semibold mt-6 mb-3 text-neutral-900 dark:text-neutral-100">
                       {paragraph.replace("### ", "")}
                     </h3>
                   );
@@ -99,7 +99,7 @@ export default async function BlogPost({ params }: BlogPostProps) {
                 // Handle list items
                 if (paragraph.startsWith("- ")) {
                   return (
-                    <li key={index} className="ml-6 mb-2">
+                    <li key={index} className="ml-6 mb-2 text-neutral-700 dark:text-neutral-300">
                       {paragraph.replace("- ", "").replace(/\*\*(.*?)\*\*/g, (_, text) => text)}
                     </li>
                   );
@@ -108,7 +108,7 @@ export default async function BlogPost({ params }: BlogPostProps) {
                 // Handle numbered lists
                 if (/^\d+\.\s/.test(paragraph)) {
                   return (
-                    <li key={index} className="ml-6 mb-2">
+                    <li key={index} className="ml-6 mb-2 text-neutral-700 dark:text-neutral-300">
                       {paragraph.replace(/^\d+\.\s/, "")}
                     </li>
                   );
@@ -127,7 +127,7 @@ export default async function BlogPost({ params }: BlogPostProps) {
                 return (
                   <p
                     key={index}
-                    className="mb-4 leading-relaxed"
+                    className="mb-4 leading-relaxed text-neutral-700 dark:text-neutral-300"
                     dangerouslySetInnerHTML={{ __html: processedParagraph }}
                   />
                 );

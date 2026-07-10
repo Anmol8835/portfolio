@@ -12,18 +12,18 @@ export default function Blogs() {
       <div className="w-full max-w-3xl mx-auto">
         <Footer />
         <main className="w-full mt-12">
-          <h1 className="text-4xl font-bold mb-8">Blog</h1>
+          <h1 className="text-4xl font-bold mb-8 text-neutral-900 dark:text-neutral-100">Blog</h1>
 
           <div className="space-y-8">
             {sortedBlogs.map((blog) => (
               <article key={blog.slug} className="border-b pb-8 last:border-b-0">
                 <Link href={`/blogs/${blog.slug}`} className="group">
-                  <h2 className="text-2xl font-semibold mb-2 group-hover:underline">
+                  <h2 className="text-2xl font-semibold mb-2 group-hover:underline text-neutral-900 dark:text-neutral-100">
                     {blog.title}
                   </h2>
                 </Link>
 
-                <time className="text-sm opacity-60 mb-3 block">
+                <time className="text-sm mb-3 block text-neutral-500 dark:text-neutral-400">
                   {new Date(blog.date).toLocaleDateString('en-US', {
                     year: 'numeric',
                     month: 'long',
@@ -31,7 +31,7 @@ export default function Blogs() {
                   })}
                 </time>
 
-                <p className="mb-4 opacity-80">{blog.excerpt}</p>
+                <p className="mb-4 text-neutral-700 dark:text-neutral-300">{blog.excerpt}</p>
 
                 <div className="flex flex-wrap gap-2">
                   {blog.tags.map((tag) => (
