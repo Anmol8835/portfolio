@@ -9,6 +9,96 @@ export interface Blog {
 
 export const blogs: Blog[] = [
   {
+    title: "Cost-Aware LLM Routing — Cheap by Default, Smart Only When It Has to Be",
+    slug: "cost-aware-llm-routing-cheap-by-default",
+    excerpt: "A 20–70x price gap separates budget from frontier models, but most traffic doesn't need the expensive one. How a classify-then-route gateway keeps costs low — and how I stop the savings number from lying to me.",
+    date: "2026-09-07",
+    tags: ["LLM", "Routing", "Cost Optimization", "Backend", "API Gateway"],
+    content: `If you're routing every request to a frontier model, you're paying 20-70x more than you need to for most of your traffic. \`claude-opus\` costs $5/$25 per million tokens; \`deepseek-v4-flash\` costs $0.22/$0.66. A "hi, can you summarize this?" prompt doesn't care which one answers it. The problem is that users won't pick the right model per request — and asking them to try is the fastest way to lose them.
+
+So the gateway does it for them. Every request is classified first, then routed to the cheapest model that can actually do the job well. This post is about how that routing decision gets made, and how I keep it honest.
+
+## The Core Bet: Most Requests Are Cheap
+
+Real traffic is a long tail. Summaries, translations, fact lookups, "rewrite this email", boilerplate CRUD code — these are the majority, and a budget model handles them fine. The expensive work — hard debugging, formal math, multi-step research, safety-sensitive reasoning — is a minority, but it's the part that genuinely needs a reasoning-tier model.
+
+The routing principle follows directly: **cheap by default, escalate only when the request clearly needs it.** The default routing mode is \`cheap\`. A request has to earn a more expensive model.
+
+## What the Classifier Hands the Router
+
+Before routing, a hybrid classifier labels the request. Three free signals run in parallel — deterministic rules, an embedding matcher, and structural profile checks — and their votes are fused. Only when fused confidence drops below a threshold does an LLM fallback fire. The router only cares about a few of these outputs:
+
+- **\`primary_task\`** — what the user is actually doing (code_generation, summarization, mathematics, …)
+- **\`complexity\`** — low / medium / high
+- **\`routing.model_type\`** — the tier the task wants: general_model, reasoning_model, coding_model, fast_model…
+- **\`risk\`** — including a \`restricted\` tier for legal/medical/safety-sensitive asks
+- **\`latency_preference\`** — fast / normal / quality_first
+
+\`routing.model_type\` is the strongest signal, and \`complexity\` is the cost-sensitivity knob. Everything else nudges around the edges.
+
+## Hard Filters Come First
+
+Before any scoring, the router drops models that can't do the job:
+
+- **Context window** — a request that won't fit (90% threshold) can't go to that model, full stop.
+- **Capabilities** — tool-calling, vision, audio are hard requirements, not preferences.
+- **Restricted content** — a \`restricted\` request only goes to a safety-oriented model.
+- **The reasoning-tier filter** — a request classified as \`reasoning_model\` can never be served by a fast-tier model, even in cheap mode. This is the rule that makes "cheap by default" safe: cost pressure can't downgrade a hard reasoning task.
+
+The filters shrink the candidate set to "models that could actually succeed." Only then does cost enter.
+
+## The Scoring Model
+
+Each surviving candidate gets a score:
+
+\`score = qualityWeight * qualityScore + costWeight * costTierScore\`
+
+- **\`qualityScore\`** — how well the model matches the request: model-type match (45%), task affinity (35%), complexity match (20%).
+- **\`costTierScore\`** — how well the model's price tier (budget / low / standard / premium) matches the request's cost sensitivity. A low-complexity request strongly prefers budget models; a high-complexity one prefers standard/premium.
+
+The weights shift with routing mode — set per-request via an \`X-Routing-Mode\` header, defaulting to \`cheap\`:
+
+- **cheap** — quality 0.35 / cost 0.65
+- **balanced** — 0.60 / 0.40
+- **quality** — 0.85 / 0.15
+
+Then two small corrections. A latency bonus/penalty for \`fast\` vs \`quality_first\` preferences. And a **cost-efficiency boost** — \`1 / (inputPrice + outputPrice)\` — so that when two models tie on quality, the cheaper one wins. In \`cheap\` mode that boost is 0.12, enough to break ties but not enough to flip a bad quality match.
+
+## Escalation Is the Exception
+
+The classifier can force an upgrade even in \`cheap\` mode:
+
+- \`latency_preference = quality_first\` or a \`human_review_recommended\` flag jumps the mode to \`quality\`.
+- \`risk = restricted\` already filtered the field to safety models.
+- \`complexity = high\` moves the cost-sensitivity tier up, so standard/premium models score far better than budget ones.
+
+That's the whole trick. Cheap is the default; the classifier, not the user, decides when a request stops being cheap. And because escalation is a small, well-defined set of triggers rather than a magic threshold, it's easy to reason about and audit.
+
+## Keeping the Savings Honest
+
+Two places this can quietly lie, and how I guard against them.
+
+**The classifier isn't free.** When the free signals are uncertain, the classifier falls back to calling a real LLM (\`deepseek-chat\`), and those tokens are billed. So "savings" can't be "provider spend only" — the metrics store adds classifier cost into the total: \`totalCost = providerCost + classifierCost\`. The dashboard then compares that total against a fixed-model baseline — what the same traffic would have cost if every request went to one model. That's the honest number.
+
+- Average saved vs. routing everything through \`claude-sonnet\`: **[SAVED_PCT]**%
+- Average saved vs. routing everything through \`claude-opus\`: **[SAVED_PCT_OPUS]**%
+- Classifier overhead as a share of total spend: **[CLASSIFIER_OVERHEAD_PCT]**%
+
+**Mis-routing is the other leak.** If a hard task gets pushed to a budget model, the "savings" show up on the dashboard but the user eats a bad answer or re-sends the prompt. I don't have a clean automated metric for this yet — right now it's the reasoning-tier filter plus manual spot-checks of \`primary_task\` vs the selected model in the recent-requests feed. Mis-route rate: **[MISROUTE_RATE]** (still hand-measured).
+
+## Where It Still Bites
+
+- The embedding and rule classifiers are cheap but brittle — out-of-vocabulary prompts can mislabel complexity, and a mislabeled "high" complexity on a trivial prompt sends it to an expensive model. Over-escalation is safer than under-escalation, but it quietly inflates the bill.
+- \`restricted\` detection is conservative on purpose; a false positive routes ordinary asks to the most expensive safety model.
+- The savings number is only as good as the baseline you compare against — "cheaper than opus" is a low bar, and I have to keep reminding myself of that when the dashboard looks flattering.
+
+## The Takeaway
+
+Cost-aware routing isn't a model-selection feature — it's a classification problem with a budget attached. If your classifier is good at separating "a budget model can do this" from "only a reasoning model should do this," the routing almost writes itself: cheap by default, escalate on a small set of explicit triggers, and count the classifier's own tokens before you claim you saved anything.
+
+The pricing gap isn't going away. The teams that win on cost won't be the ones with a cleverer prompt — they'll be the ones who stopped sending every request to the most expensive model by default.`
+  },
+  {
     title: "Distributed Caching — Why It's Harder Than It Looks",
     slug: "distributed-caching-harder-than-it-looks",
     excerpt: "Caching feels simple until you have more than one server. Here's what breaks when you move from a single-node cache to a distributed one — cache stampedes, inconsistency windows, hot-key saturation, and why Redis Cluster alone doesn't save you.",

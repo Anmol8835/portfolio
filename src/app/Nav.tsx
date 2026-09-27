@@ -4,11 +4,11 @@ import Link from "next/link";
 
 export default function Footer(){
     return(
-        <nav className="w-full justify-between items-center flex gap-[24px] rounded-lg">
-          <div className="font-bold text-xl">
+        <nav className="w-full flex flex-col gap-4 rounded-lg md:flex-row md:items-center md:justify-between md:gap-[24px]">
+          <div className="font-bold text-2xl leading-relaxed tracking-tight whitespace-nowrap md:text-3xl">
             <Link href="/">Hi, I'm Anmol</Link>
           </div>
-          <div className="flex gap-6 items-center">
+          <div className="flex gap-6 items-center whitespace-nowrap">
             <Link href="/blogs">Blog</Link>
             <Link href="/projects">Projects</Link>
             <Link href="/goodReads">Good Read</Link>

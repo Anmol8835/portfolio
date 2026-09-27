@@ -6,7 +6,7 @@ export default function Home() {
     <div className="min-h-screen pt-24 md:pt-28 px-6 md:px-12 lg:px-20">
       <div className="w-full max-w-3xl mx-auto">
         <Footer/>
-        <main className="w-full">
+        <main className="mt-10 w-full">
           <CalligraphDemo />
 
           <section className="mt-10 space-y-5 text-base md:text-lg leading-relaxed text-neutral-800">

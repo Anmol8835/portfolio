@@ -5,6 +5,11 @@
   --font-mono: var(--font-geist-mono);
 }
 
+@theme {
+  --color-burgundy: #800020;
+  --color-burgundy-light: #f5ebed;
+}
+
 body {
   background: #ffffff;
   color: #171717;
